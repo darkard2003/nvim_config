@@ -1,3 +1,10 @@
+require 'copilot'.setup {
+	suggestion = { enabled = false },
+	panel = { enabled = false },
+}
+
+require 'copilot_cmp'.setup {}
+
 local cmp = require 'cmp'
 cmp.setup({
 	snippet = {
@@ -17,8 +24,9 @@ cmp.setup({
 		['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
 	}),
 	sources = cmp.config.sources({
-		{ name = 'nvim_lsp' },
-		{ name = 'luasnip' }, -- For luasnip users.
+		{ name = "copilot",  group_index = 2 },
+		{ name = 'nvim_lsp', group_index = 2 },
+		{ name = 'luasnip',  group_index = 2 }, -- For luasnip users.
 	}, {
 		{ name = 'buffer' },
 	})
