@@ -15,7 +15,7 @@ local colors = {
 local config = {
 	options = {
 		disabled_filetypes = {
-			statusline = { "NvimTree" }
+			statusline = { "NvimTree", "toggleterm" }
 		}
 	},
 }
