@@ -1,10 +1,3 @@
-require 'copilot'.setup {
-	suggestion = { enabled = false },
-	panel = { enabled = false },
-}
-
-require 'copilot_cmp'.setup {}
-
 local cmp = require 'cmp'
 local lspkind = require 'lspkind'
 cmp.setup({

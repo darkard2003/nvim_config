@@ -2,8 +2,12 @@ return {
 	'nvim-lualine/lualine.nvim',
 	dependencies = { 'nvim-tree/nvim-web-devicons' },
 	config = function()
-		local opts = require 'config.lualine.defaults'
-		opts.options.theme = "catppuccin"
-		require 'lualine'.setup(opts)
+		require 'lualine'.setup({
+			options = {
+				disabled_filetypes = {
+					statusline = { "NvimTree", "toggleterm" }
+				}
+			},
+		})
 	end
 }
