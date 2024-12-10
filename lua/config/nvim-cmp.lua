@@ -6,7 +6,22 @@ require 'copilot'.setup {
 require 'copilot_cmp'.setup {}
 
 local cmp = require 'cmp'
+local lspkind = require 'lspkind'
 cmp.setup({
+	formatting = {
+		format = lspkind.cmp_format({
+			mode = 'symbol',
+			symbol_map = {
+				Copilot = ""
+			},
+			maxwidth = {
+				menu = 50,
+				abbr = 50,
+			},
+			ellipsis_char = '...',
+			show_labelDetails = true,
+		})
+	},
 	snippet = {
 		expand = function(args)
 			require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
