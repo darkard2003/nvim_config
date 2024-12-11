@@ -1,3 +1,9 @@
+local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
+for type, icon in pairs(signs) do
+	local hl = "DiagnosticSign" .. type
+	vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+end
+
 require('mason').setup()
 
 local mason_lsp = require 'mason-lspconfig'
@@ -46,24 +52,45 @@ mason_lsp.setup_handlers {
 
 
 
+local lsp_method_map = {
+	{
+		name = 'textDocument/rename',
+		keymap = '<leader>rn',
+		action = vim.lsp.buf.rename,
+	},
+	{
+		name = 'textDocument/implementation',
+		keymap = 'gi',
+		action = vim.lsp.buf.implementation,
+	},
+	{
+		name = 'textDocument/codeAction',
+		keymap = '<leader>ca',
+		action = vim.lsp.buf.code_action,
+	},
+	{
+		name = 'textDocument/formatting',
+		keymap = '<leader>fm',
+		action = vim.lsp.buf.format,
+	}
+}
 
 vim.api.nvim_create_autocmd('LspAttach', {
 	callback = function(args)
 		local client = vim.lsp.get_client_by_id(args.data.client_id)
 		if not client then return end
-		if client.supports_method('textDocument/rename') then
-			vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename)
-		end
-		if client.supports_method('textDocument/implementation') then
-			vim.keymap.set('n', '<leader>ri', vim.lsp.buf.implementation)
-		end
-		if client.supports_method('textDocument/formatting') then
-			vim.api.nvim_create_autocmd('BufWritePre', {
-				buffer = args.buf,
-				callback = function()
-					vim.lsp.buf.format({ bufnr = args.buf, id = client.id })
+		for _, v in ipairs(lsp_method_map) do
+			if client.supports_method(v.name) then
+				vim.keymap.set('n', v.keymap, v.action)
+				if v.name == 'textDocument/formatting' then
+					vim.api.nvim_create_autocmd('BufWritePre', {
+						buffer = args.buf,
+						callback = function()
+							vim.lsp.buf.format({ bufnr = args.buf, id = client.id })
+						end
+					})
 				end
-			})
+			end
 		end
 	end,
 })
