@@ -72,6 +72,11 @@ local lsp_method_map = {
 		name = 'textDocument/formatting',
 		keymap = '<leader>fm',
 		action = vim.lsp.buf.format,
+	},
+	{
+		name = 'textDocument/definition',
+		keymap = 'gd',
+		action = vim.lsp.buf.definition
 	}
 }
 

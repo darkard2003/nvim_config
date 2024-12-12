@@ -14,6 +14,5 @@ return {
 			}
 		}
 		vim.keymap.set('n', '<leader>fn', require('telescope').extensions.flutter.commands, { desc = "Load flutter tools" })
-		vim.keymap.set('n', '<leader>fm', require('telescope').extensions.flutter.fvm, { desc = "Load fvm tools" })
 	end
 }
