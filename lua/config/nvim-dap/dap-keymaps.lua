@@ -1,3 +1,4 @@
+local dap = require "dap"
 --[[Setting the keymaps]]
 vim.keymap.set('n', '<F5>', function() dap.continue() end, { desc = "DAP Continue" })
 vim.keymap.set('n', '<F10>', function() dap.step_over() end, { desc = "DAP Step Over" })

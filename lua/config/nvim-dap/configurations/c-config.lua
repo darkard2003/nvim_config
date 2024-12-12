@@ -4,6 +4,7 @@ dap.configurations.c = {
 		name = "Launch",
 		type = "gdb",
 		request = "launch",
+		terminal = 'integreted', -- Launches an external terminal
 		program = function()
 			return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
 		end,
