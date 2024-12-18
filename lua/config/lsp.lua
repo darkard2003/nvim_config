@@ -1,6 +1,11 @@
 local M = {}
 
 M.setup = function()
+  vim.keymap.set("n", "gk", vim.diagnostic.open_float)
+  vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
+  vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
+  vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist)
+
   local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
   for type, icon in pairs(signs) do
     local hl = "DiagnosticSign" .. type
@@ -36,7 +41,7 @@ M.on_attach = function(client, buffer)
       name = 'textDocument/definition',
       keymap = 'gd',
       action = vim.lsp.buf.definition
-    }
+    },
   }
 
   for _, v in ipairs(lsp_method_map) do

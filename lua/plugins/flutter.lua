@@ -10,6 +10,7 @@ return {
   config = function()
     local lsp = require "config.lsp"
     require("flutter-tools").setup {
+      fvm = true,
       debugger = {
         enabled = true,
       },
